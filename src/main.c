@@ -68,6 +68,8 @@ int main(void)
   */
 
   /* TODO - Add your application code here */
+  int BUTTON = 0;
+
   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
 
   GPIOA->MODER |= (0b01)<<(5*2);
@@ -93,6 +95,12 @@ int main(void)
 	  GPIOA->BSRRL |= ((uint16_t)(1 << 5));
 
 	  GPIOA->BSRRH |= ((uint16_t)(1 << 5));
+
+	  if (GPIOC->IDR &= ((uint16_t)(1 << 13))){
+		  BUTTON = 1;
+	  }
+	  else
+		  BUTTON = 0;
   }
   return 0;
 }
