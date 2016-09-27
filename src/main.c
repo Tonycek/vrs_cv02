@@ -74,7 +74,7 @@ int main(void)
   GPIOA->OTYPER &= ~((uint16_t)(1<<5));
   GPIOA->PUPDR |= (0b01)<<(5*2);
   GPIOA->ODR |= 0b0000000000100000;
-  GPIOA->OSPEEDR |= (0b01)<<(5*2);
+  GPIOA->OSPEEDR |= (0b10)<<(5*2);
 
   /* Infinite loop */
   while (1)
