@@ -80,7 +80,11 @@ int main(void)
   {
 	  GPIOA->ODR |= ((uint16_t)(1 << 5));
 
-	  GPIOA->ODR &= ~((uint16_t)(1 << 5));;
+	  GPIOA->ODR &= ~((uint16_t)(1 << 5));
+
+	  GPIOA->BSRRL |= ((uint16_t)(1 << 5));
+
+	  GPIOA->BSRRH |= ((uint16_t)(1 << 5));
   }
   return 0;
 }
