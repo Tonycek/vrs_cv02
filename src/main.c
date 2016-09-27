@@ -75,6 +75,14 @@ int main(void)
   GPIOA->PUPDR |= (0b01)<<(5*2);
   GPIOA->OSPEEDR |= (0b10)<<(5*2);
 
+
+  RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOC, ENABLE);
+
+  GPIOC->MODER |= (0b00)<<(13*2);
+  GPIOC->OTYPER &= ~((uint16_t)(1<<13));
+  GPIOC->PUPDR |= (0b00)<<(13*2);
+  //GPIOC->OSPEEDR |= (0b10)<<(5*2);
+
   /* Infinite loop */
   while (1)
   {
