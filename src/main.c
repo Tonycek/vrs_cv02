@@ -71,6 +71,8 @@ int main(void)
   int BUTTON = 0;
 
   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
+  RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOC, ENABLE);
+
 
   GPIOA->MODER |= (0b01)<<(5*2);
   GPIOA->OTYPER &= ~((uint16_t)(1<<5));
@@ -78,12 +80,10 @@ int main(void)
   GPIOA->OSPEEDR |= (0b10)<<(5*2);
 
 
-  RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOC, ENABLE);
-
   GPIOC->MODER |= (0b00)<<(13*2);
   GPIOC->OTYPER &= ~((uint16_t)(1<<13));
   GPIOC->PUPDR |= (0b00)<<(13*2);
-  //GPIOC->OSPEEDR |= (0b10)<<(5*2);
+  GPIOC->OSPEEDR |= (0b10)<<(5*2);
 
   /* Infinite loop */
   while (1)
@@ -96,11 +96,11 @@ int main(void)
 
 	  GPIOA->BSRRH |= ((uint16_t)(1 << 5));
 
-	  if (GPIOC->IDR &= ((uint16_t)(1 << 13))){
-		  BUTTON = 1;
+	  if ((GPIOC->IDR &= ((uint16_t)(1 << 13)))){
+		  BUTTON = 0;
 	  }
 	  else
-		  BUTTON = 0;
+		  BUTTON = 1;
   }
   return 0;
 }
