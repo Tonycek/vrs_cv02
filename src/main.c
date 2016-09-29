@@ -102,7 +102,7 @@ int main(void)
 	  }
 	  else
 		  BUTTON = 1;
-*/
+*//*
 	  for (i=0; i<2000; i++){
 		  if (i < 1000){
 			  GPIOA->ODR |= ((uint16_t)(1 << 5));
@@ -110,7 +110,13 @@ int main(void)
 		  else{
 			  GPIOA->ODR &= ~((uint16_t)(1 << 5));
 		  }
+	  }*/
+
+	  if ((GPIOC->IDR &= ((uint16_t)(1 << 13)))){
+		  GPIOA->ODR &= ~((uint16_t)(1 << 5));
 	  }
+	  else
+		  GPIOA->ODR |= ((uint16_t)(1 << 5));
   }
   return 0;
 }
