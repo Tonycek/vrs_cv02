@@ -69,6 +69,7 @@ int main(void)
 
   /* TODO - Add your application code here */
   int BUTTON = 0;
+  int j = 0;
 
   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOC, ENABLE);
@@ -87,7 +88,7 @@ int main(void)
 
   /* Infinite loop */
   while (1)
-  {
+  {/*
 	  GPIOA->ODR |= ((uint16_t)(1 << 5));
 
 	  GPIOA->ODR &= ~((uint16_t)(1 << 5));
@@ -101,6 +102,15 @@ int main(void)
 	  }
 	  else
 		  BUTTON = 1;
+*/
+	  for (i=0; i<2000; i++){
+		  if (i < 1000){
+			  GPIOA->ODR |= ((uint16_t)(1 << 5));
+		  }
+		  else{
+			  GPIOA->ODR &= ~((uint16_t)(1 << 5));
+		  }
+	  }
   }
   return 0;
 }
