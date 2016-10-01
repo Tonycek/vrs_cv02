@@ -49,6 +49,7 @@ SOFTWARE.
 int main(void)
 {
   int i = 0;
+  int pocetStlaceni = 0;
 
   /**
   *  IMPORTANT NOTE!
@@ -102,21 +103,31 @@ int main(void)
 	  }
 	  else
 		  BUTTON = 1;
-*//*
-	  for (i=0; i<2000; i++){
-		  if (i < 1000){
+*/
+	  for (i=0; i<100000; i++){
+		  if (i < 50000){
 			  GPIOA->ODR |= ((uint16_t)(1 << 5));
 		  }
 		  else{
 			  GPIOA->ODR &= ~((uint16_t)(1 << 5));
 		  }
-	  }*/
-
+	  }
+/*
 	  if ((GPIOC->IDR &= ((uint16_t)(1 << 13)))){
 		  GPIOA->ODR &= ~((uint16_t)(1 << 5));
 	  }
 	  else
 		  GPIOA->ODR |= ((uint16_t)(1 << 5));
+	  *//*
+	  if (!(GPIOC->IDR &= ((uint16_t)(1 << 13)))){
+		  pocetStlaceni++;
+
+		  if (pocetStlaceni%2==0){
+			  GPIOA->ODR &= ~((uint16_t)(1 << 5));
+	  	  }
+	  	  else
+	  		  GPIOA->ODR |= ((uint16_t)(1 << 5));
+	  }*/
   }
   return 0;
 }
