@@ -191,7 +191,7 @@ int main(void)
 	 	 BUTTON = 0;
 	  }
 	  else
-	  	 BUTTON = 1;*/
+	  	 BUTTON = 1;*//*
 	  for (i=0; i<100000; i++){
 	  	 if (i < 50000){
 	  		GPIO_SetBits(GPIOA, GPIO_ODR_ODR_5);
@@ -199,7 +199,12 @@ int main(void)
 	  	 else{
 	  		GPIO_ResetBits(GPIOA, GPIO_ODR_ODR_5);
 	     }
+	  }*/
+	  if ((GPIO_ReadInputDataBit(GPIOC, GPIO_IDR_IDR_13))){
+		  GPIO_ResetBits(GPIOA, GPIO_BSRR_BS_5);
 	  }
+	  else
+		  GPIO_SetBits(GPIOA, GPIO_BSRR_BS_5);
   }
   return 0;
 }
