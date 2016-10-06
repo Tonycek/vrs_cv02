@@ -29,6 +29,9 @@ SOFTWARE.
 /* Includes */
 #include <stddef.h>
 #include "stm32l1xx.h"
+#define S1 0
+#define S2 1
+#define S3 2
 
 
 /* Private typedef */
@@ -70,7 +73,7 @@ int main(void)
 
   /* TODO - Add your application code here */
   int BUTTON = 0;
-  int j = 0;
+
 
   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOC, ENABLE);
@@ -87,23 +90,26 @@ int main(void)
   GPIOC->PUPDR |= (0b00)<<(13*2);
   GPIOC->OSPEEDR |= (0b10)<<(5*2);
 
+  int stary = 0;
+  int novy = 0;
   /* Infinite loop */
   while (1)
-  {/*
+  {
+	  /*
 	  GPIOA->ODR |= ((uint16_t)(1 << 5));
 
 	  GPIOA->ODR &= ~((uint16_t)(1 << 5));
 
 	  GPIOA->BSRRL |= ((uint16_t)(1 << 5));
 
-	  GPIOA->BSRRH |= ((uint16_t)(1 << 5));
-
+	  GPIOA->BSRRH |= ((uint16_t)(1 << 5));*/
+/*
 	  if ((GPIOC->IDR &= ((uint16_t)(1 << 13)))){
 		  BUTTON = 0;
 	  }
 	  else
-		  BUTTON = 1;
-*/
+		  BUTTON = 1;*/
+/*
 	  for (i=0; i<100000; i++){
 		  if (i < 50000){
 			  GPIOA->ODR |= ((uint16_t)(1 << 5));
@@ -111,23 +117,43 @@ int main(void)
 		  else{
 			  GPIOA->ODR &= ~((uint16_t)(1 << 5));
 		  }
-	  }
+	  }*/
 /*
 	  if ((GPIOC->IDR &= ((uint16_t)(1 << 13)))){
 		  GPIOA->ODR &= ~((uint16_t)(1 << 5));
 	  }
 	  else
 		  GPIOA->ODR |= ((uint16_t)(1 << 5));
-	  *//*
+	*/
+
+	  /************************************************
 	  if (!(GPIOC->IDR &= ((uint16_t)(1 << 13)))){
 		  pocetStlaceni++;
 
-		  if (pocetStlaceni%2==0){
+
+
+		  if (pocetStlaceni>4 && (GPIOA->IDR &= ((uint16_t)(1 << 5)))){
 			  GPIOA->ODR &= ~((uint16_t)(1 << 5));
 	  	  }
 	  	  else
 	  		  GPIOA->ODR |= ((uint16_t)(1 << 5));
-	  }*/
+	  }
+	  *************************************************/
+
+	  int j = 0;
+
+	  int vyjdizCyklu = 0;
+	  uint8_t cState = 0;
+	  uint8_t in;
+	  uint8_t it = 0;
+	  in = (!(GPIOC->IDR &= ((uint16_t)(1 << 13))));
+
+	  stary = novy;
+	  novy = ((GPIOC->IDR &0b1<<13) >> 13);
+
+	  if ((stary == 1)&&(novy == 0)){
+		  GPIOA->ODR ^=0b1<<5;
+	  }
   }
   return 0;
 }
