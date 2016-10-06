@@ -93,9 +93,9 @@ int main(void)
 
 
     uint8_t buttonState = GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_13);
-  /*
-  int BUTTON = 0;
 
+  int BUTTON = 0;
+  /*
 
   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOC, ENABLE);
@@ -176,13 +176,21 @@ int main(void)
 	  if ((stary == 1)&&(novy == 0)){
 		  GPIOA->ODR ^=0b1<<5;
 	  }*/
-
+/*
 	  buttonState = GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_13);
 	 	  if (buttonState == 0){
 	 		  GPIO_SetBits(GPIOA, GPIO_BSRR_BS_5);
 	 	  }
 	 	  else
 	 		  GPIO_ResetBits(GPIOA, GPIO_BSRR_BS_5);
+	 	  */
+	  buttonState = GPIO_ReadInputDataBit(GPIOC, GPIO_IDR_IDR_13);
+
+	  if (buttonState == 1){
+	 	 BUTTON = 0;
+	  }
+	  else
+	  	 BUTTON = 1;
   }
   return 0;
 }
