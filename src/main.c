@@ -111,9 +111,9 @@ int main(void)
   GPIOC->OTYPER &= ~((uint16_t)(1<<13));
   GPIOC->PUPDR |= (0b00)<<(13*2);
   GPIOC->OSPEEDR |= (0b10)<<(5*2);
-
+*/
   int stary = 0;
-  int novy = 0;*/
+  int novy = 0;
   /* Infinite loop */
   while (1)
   {
@@ -199,12 +199,21 @@ int main(void)
 	  	 else{
 	  		GPIO_ResetBits(GPIOA, GPIO_ODR_ODR_5);
 	     }
-	  }*/
+	  }*//*
 	  if ((GPIO_ReadInputDataBit(GPIOC, GPIO_IDR_IDR_13))){
 		  GPIO_ResetBits(GPIOA, GPIO_BSRR_BS_5);
 	  }
 	  else
-		  GPIO_SetBits(GPIOA, GPIO_BSRR_BS_5);
+		  GPIO_SetBits(GPIOA, GPIO_BSRR_BS_5);*/
+	  stary = novy;
+	//  novy = ((GPIOC->IDR &0b1<<13) >> 13);
+	  novy = GPIO_ReadInputDataBit(GPIOC, GPIO_IDR_IDR_13);
+	  if ((stary == 1)&&(novy == 0)){
+		  if(GPIO_ReadInputDataBit(GPIOA, GPIO_IDR_IDR_5))
+			  GPIO_ResetBits(GPIOA, GPIO_BSRR_BS_5);
+		  else
+			  GPIO_SetBits(GPIOA, GPIO_BSRR_BS_5);
+	  }
   }
   return 0;
 }
